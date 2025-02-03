@@ -17,9 +17,22 @@ static complex_t complex_create(int id);
 static void complex_destroy(void* ptr);
 static void print_complex(void* ptr);
 
+void primitive_type_exemple(void);
+void complex_type_exemple(void);
+
 int main(void)
 {
     srand(time(NULL));
+    
+    primitive_type_exemple();
+    complex_type_exemple();
+
+    return 0;
+}
+
+
+void primitive_type_exemple(void)
+{
 
     printf("----------- UTILISATION AVEC UN TYPE PRIMITIF -----------\n");
     dyn_array_t* arr = dyn_array_create(1, sizeof(int), NULL);
@@ -93,8 +106,42 @@ int main(void)
 
     //libération de la mémoire
     dyn_array_destroy(arr);
+}
 
-    return 0;
+void complex_type_exemple(void)
+{
+    printf("\n----------- UTILISATION AVEC UN TYPE COMPLEXE -----------\n");
+    dyn_array_t* arr = dyn_array_create(30, sizeof(complex_t), complex_destroy);
+    dyn_array_print(arr, print_complex);
+    
+    printf("\najout de 30 éléments\n");
+    complex_t *reserved = dyn_array_reserve(arr, 30);
+    for(size_t i = 0; i < 30; i++) reserved[i] = complex_create(i);
+    dyn_array_print(arr, print_complex);
+
+    printf("\nsuppression des éléments avec un id paire\n");
+    for(size_t i = 0; i < dyn_array_count(arr); i++)
+    {
+        complex_t* c = dyn_array_get(arr, i);
+        if(c->id % 2 == 0)
+        {
+            dyn_array_remove(arr, i);
+            i--;//on décrémente i car les éléments sont décalés
+        }
+    }
+    dyn_array_print(arr, print_complex);
+
+    printf("\ninsertion d'un nouvel élément à l'index 5\n");
+    complex_t c = complex_create(999);
+    dyn_array_insert(arr, 5, &c);
+    dyn_array_print(arr, print_complex);
+
+    printf("\nsuppression de l'élément à l'index 5\n");
+    dyn_array_remove(arr, 5);
+    dyn_array_print(arr, print_complex);
+
+    printf("\ndestruction du tableau\n");
+    dyn_array_destroy(arr);
 }
 
 static complex_t complex_create(int id)
@@ -119,6 +166,7 @@ static void complex_destroy(void* ptr)
 {
     complex_t* c = (complex_t*)ptr;
     free(c->dynamic_data);
+    printf("destroyed complex_t with id: %d\n", c->id);
 }
 
 static void print_complex(void* ptr)
