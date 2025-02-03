@@ -6,7 +6,7 @@ CFLAGS := -Wall -Wextra -pedantic -O3
 demo: src/demo.c src/dyn_array/dyn_array.c src/dyn_array/dyn_array.h
 	@mkdir -p bin
 	$(CC) $(CFLAGS) -o bin/$@ $^ $(LDFLAGS)
-	./demo
+	./bin/demo
 
 benchmark: src/benchmark.c src/dyn_array/dyn_array.c src/dyn_array/dyn_array.h
 	@mkdir -p bin
