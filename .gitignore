@@ -1,6 +1,3 @@
+bin/*
 
-.demo
-
-.benchmark
-
-**/*.null-ls*
+**/*null-ls*

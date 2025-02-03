@@ -4,11 +4,13 @@ CFLAGS := -Wall -Wextra -pedantic -O3
 .PHONY: demo benchmark clean help
 
 demo: src/demo.c src/dyn_array/dyn_array.c src/dyn_array/dyn_array.h
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	@mkdir -p bin
+	$(CC) $(CFLAGS) -o bin/$@ $^ $(LDFLAGS)
 	./demo
 
 benchmark: src/benchmark.c src/dyn_array/dyn_array.c src/dyn_array/dyn_array.h
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	@mkdir -p bin
+	$(CC) $(CFLAGS) -o bin/$@ $^ $(LDFLAGS)
 
 clean:
 	rm -f demo benchmark
