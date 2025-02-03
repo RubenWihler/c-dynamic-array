@@ -33,7 +33,6 @@ int main(void)
 
 void primitive_type_exemple(void)
 {
-
     printf("----------- UTILISATION AVEC UN TYPE PRIMITIF -----------\n");
     dyn_array_t* arr = dyn_array_create(1, sizeof(int), NULL);
     dyn_array_print(arr, print_int);
@@ -43,13 +42,6 @@ void primitive_type_exemple(void)
     dyn_array_push_back(arr, &(int){11});
     dyn_array_push_back(arr, &(int){22});
     dyn_array_push_back(arr, &(int){33});
-    dyn_array_print(arr, print_int);
-
-    dyn_array_pop_back(arr);
-
-    dyn_array_push_back(arr, &(int){44});
-    dyn_array_push_back(arr, &(int){55});
-    dyn_array_push_back(arr, &(int){66});
     dyn_array_print(arr, print_int);
     
     //set
